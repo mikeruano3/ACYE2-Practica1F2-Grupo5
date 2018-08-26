@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://35.184.59.109/ClimaGT/';
+$config['base_url'] = 'http://35.232.244.119/ClimaGT/';
 
 /*
 |--------------------------------------------------------------------------
