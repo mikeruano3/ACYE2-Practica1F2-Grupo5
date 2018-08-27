@@ -40,6 +40,14 @@
 						<div id="map"></div>
 					</div>
 		        </div>
+				<br><br>
+				<div class="row">
+		            <div class="col-md-12">
+						<div class="alert alert-warning" style="color:black;">
+						  	<strong>Atención!</strong> Debes dar click en los marcadores sobre el mapa para ver el detalle del clima.
+						</div>
+					</div>
+		        </div>
 		    </div>
 		</div>
 
@@ -64,42 +72,35 @@
 
 			function initMap() {
 
-				$(document).ready(function() {
+				var myLatlng = new google.maps.LatLng(14.6407200, -90.5132700);
+				var map = new google.maps.Map(document.getElementById('map'), {
+					zoom: 11,
+					center: myLatlng
+				});
 
-			        var myLatlng = new google.maps.LatLng(14.6407200, -90.5132700);
-			        var map = new google.maps.Map(document.getElementById('map'), {
-			            zoom: 8,
-			            center: myLatlng
-			        });
+				var marker;
+				var obj_coordenadas = {"datos":[
+					{ "nombre": "Patrik Sacbajá", "latitud": 14.5824371, "longitud": -90.4969449 },
+					{ "nombre": "Marvin Calderón", "latitud": 14.6157899, "longitud": -90.5127812 },
+					{ "nombre": "Kevin Orellana", "latitud": 14.518221, "longitud": -90.544376 },
+					{ "nombre": "Susel Retana", "latitud": 14.54091, "longitud": -90.603772 },
+					{ "nombre": "Diana Jimenez", "latitud": 14.718391, "longitud": -90.472897 },
+					{ "nombre": "Miguel Ruano", "latitud": 14.615966, "longitud": -90.510603 }
+				]};
 
-			        var marker;
+				$.each(obj_coordenadas.datos, function(k, v){
 
-			        $.ajax({
+					marker = new google.maps.Marker({
+						position: new google.maps.LatLng(v.latitud, v.longitud),
+						map: map,
+						title: 'Datos de ' + v.nombre
+					});
 
-						type: "GET",
-		                url: "https://api.myjson.com/bins/9mhy0",
-		                timeout: 5000,
-			            success: function(obj) {
+					google.maps.event.addListener(marker, 'click', function() {
+						$('#google_weather_modal').modal('show');
+					});
 
-							$.each(obj.datos, function(k, v){
-
-								marker = new google.maps.Marker({
-									position: new google.maps.LatLng(v.latitud, v.longitud),
-									map: map,
-									title: 'Dato No.' + k
-								});
-
-								google.maps.event.addListener(marker, 'click', function() {
-									$('#google_weather_modal').modal('show');
-							    });
-
-							});
-
-			            }
-
-			        });
-
-			    });
+				});
 
             }
 
