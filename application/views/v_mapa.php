@@ -1,82 +1,90 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <!DOCTYPE html>
-	<html lang="es">
-		<head>
- 			
- 			<meta charset="utf-8">
- 			<title>Mapa de recolección de datos | ClimaGT</title>
- 			<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
- 			<style type="text/css">
- 				body{
- 					background: #888888
- 				}
- 				#sidebar{
- 					position: absolute;
- 					width: 375px;
-					height: 800px;
-					background: #222;
-					color: #fff;
-					margin-left: 1525px;
-					margin-top: -800px;
-					border: 5px solid #fff;
- 				}
- 				ul{
- 					padding: 0;
- 					text-align: justify; 
- 				}
- 				li{
- 					cursor: pointer;
- 					border-top: 1px solid #fff;
- 					background: #c3c3c3; 
- 					list-style: none;
- 					color: #111
- 				}
- 				li:hover{
- 					background: #fefefe;
- 				}
- 			</style>
- 			
- 			<script type="text/javascript">
- 				
- 				function datos_marker(lat, lng, marker) {
-     				
-     				var mi_marker = new google.maps.LatLng(lat, lng);
-     				map.panTo(mi_marker);
-     				google.maps.event.trigger(marker, 'click');
-    			}
+<html>
+    <head>
 
- 			</script>
- 			
- 			<?php echo $map['js']; ?>
- 			
-		</head>
-		
-		<body>
-			
-			<div class="alert alert-success">
-			  	<strong><h1 style="text-align:center;"> UBICACIÓN DE RECOPILACIÓN DE INFORMACION | CLIMAGT </h1></strong>.
-			</div>
+		<meta charset="utf-8">
+		<title>Mapa de recolección de datos | ClimaGT</title>
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    	<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    	<link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnzdh15cMd1fizOlGEskh0yWMdgCdrXHM&callback=initMap" async defer></script>
 
-			<div style="text-align:center;">
-				<?php echo $map['html']; ?>
-			</div>
+        <style>
+            #map {
+				min-height: 500px;
+			    width: 100%;
+			    height:100%;
+            }
+            body {
+            	background-color: #cbd0ce;
+            }
+        </style>
 
-			<div id="sidebar">
- 				
- 				<ul>
- 					
- 					<?php foreach($datos as $marker_sidebar){ ?>
- 						
- 						<li onclick="datos_marker(<?php echo $marker_sidebar['pos_y']; ?>, <?php echo $marker_sidebar['pos_x']; ?>, marker_<?php echo $marker_sidebar['id']; ?>)">
- 							<?php echo $marker_sidebar['id']; ?> &nbsp;&nbsp; <?php echo $marker_sidebar['descripcion']; ?>
- 						</li>
+    </head>
 
- 					<?php } ?>
+    <body>
+		<div class="section">
+		    <div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="alert alert-success">
+						  	<strong><h1 style="text-align:center;"> UBICACIÓN DE RECOPILACIÓN DE INFORMACION | CLIMAGT </h1></strong>.
+						</div>
+					</div>
+				</div>
+		        <div class="row">
+		            <div class="col-md-12">
+						<div id="map"></div>
+					</div>
+		        </div>
+		    </div>
+		</div>
+        <script>
 
- 				</ul>
+			function initMap() {
 
-			</div>
+				$(document).ready(function() {
 
-		</body>
+			        var myLatlng = new google.maps.LatLng(14.6407200, -90.5132700);
+			        var map = new google.maps.Map(document.getElementById('map'), {
+			            zoom: 8,
+			            center: myLatlng
+			        });
+
+			        var marker;
+
+			        $.ajax({
+
+						type: "GET",
+		                url: "https://api.myjson.com/bins/9mhy0",
+		                timeout: 5000,
+			            success: function(obj) {
+
+							$.each(obj.datos, function(k, v){
+
+								console.log(v);
+
+								marker = new google.maps.Marker({
+									position: new google.maps.LatLng(v.latitud, v.longitud),
+									map: map,
+									title: 'Dato No.' + k
+								});
+
+							});
+
+			            }
+
+			        });
+
+			    });
+
+            }
+
+        </script>
+
+    </body>
 
 </html>
