@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 include APPPATH . 'controllers\Datos.php';
 class Weather extends CI_Controller {
-    
+
     public function obtenerInfo(){
         /**EXTRAYENDO INFORMACION DEL SERVIDOR */
         $url = "http://35.192.151.177:8080/data";
@@ -17,7 +17,7 @@ class Weather extends CI_Controller {
         $arrayatributoubicacion = [];
         for ($x = 0; $x < count($datos); $x++) {
             $arrayatributoubicacion[$x] = $datos[$x]->coordenadas;
-        } 
+        }
         $datosubicacion = array_filter($arrayatributoubicacion);
         $ubicaciones = array_unique($datosubicacion);
         $arraylimpio = [];
@@ -34,7 +34,7 @@ class Weather extends CI_Controller {
         $arrayfechas = [];
         for ($x = 0; $x < count($datos); $x++) {
             $arrayfechas[$x] = date("d", strtotime($datos[$x]->fecha));
-        } 
+        }
         $fechas = array_unique($arrayfechas);
         $arraylimpio = [];
         $conteo = 0;
@@ -67,7 +67,7 @@ class Weather extends CI_Controller {
         $ubicaciones = $this->obtenerUbicacionesUnicas($datos);
         $fechas = $this->obtenerFechasUnicas($datos);
 
-    
+
         $data['ubicaciones'] = $ubicaciones;
         $data['fechas'] = $fechas;
         */
@@ -85,7 +85,7 @@ class Weather extends CI_Controller {
                 break;
             }
         }
-        $humedad = []; $presion = []; $radiacion = []; 
+        $humedad = []; $presion = []; $radiacion = [];
         $temperatura = [];
         /** GUARDAR TODOS LOS DATOS QUE CORRESPONDEN A ESE LUGAR */
         for ($x = 0; $x < count($datos); $x++) {
@@ -93,18 +93,18 @@ class Weather extends CI_Controller {
                 $humedad[$x] = $datos[$x]->humedad;
                 $presion[$x] = $datos[$x]->presion;
                 $radiacion[$x] = $datos[$x]->radiacion;
-                $temperatura[$x] = $datos[$x]->temperatura; 
+                $temperatura[$x] = $datos[$x]->temperatura;
             }
         }
         $data = $this->obtenerPromedios($humedad, $presion, $radiacion, $temperatura);
         $data['titulo'] = $ubicacion;
         $this->load->view('weather/filtro', $data);
     }
-    
+
     public function porfecha($fecha = NULL)
 	{
         $datos = $this->obtenerInfo();
-        $humedad = []; $presion = []; $radiacion = []; 
+        $humedad = []; $presion = []; $radiacion = [];
         $temperatura = [];
         /** GUARDAR TODOS LOS DATOS QUE CORRESPONDEN A ESE LUGAR */
         for ($x = 0; $x < count($datos); $x++) {
@@ -112,18 +112,18 @@ class Weather extends CI_Controller {
                 $humedad[$x] = $datos[$x]->humedad;
                 $presion[$x] = $datos[$x]->presion;
                 $radiacion[$x] = $datos[$x]->radiacion;
-                $temperatura[$x] = $datos[$x]->temperatura; 
+                $temperatura[$x] = $datos[$x]->temperatura;
             }
         }
         $data = $this->obtenerPromedios($humedad, $presion, $radiacion, $temperatura);
         $data['titulo'] = $fecha;
         $this->load->view('weather/filtro', $data);
     }
-    
+
     public function porhora($hora = NULL)
 	{
         $datos = $this->obtenerInfo();
-        $humedad = []; $presion = []; $radiacion = []; 
+        $humedad = []; $presion = []; $radiacion = [];
         $temperatura = [];
         /** GUARDAR TODOS LOS DATOS QUE CORRESPONDEN A ESE LUGAR */
         for ($x = 0; $x < count($datos); $x++) {
@@ -131,7 +131,7 @@ class Weather extends CI_Controller {
                 $humedad[$x] = $datos[$x]->humedad;
                 $presion[$x] = $datos[$x]->presion;
                 $radiacion[$x] = $datos[$x]->radiacion;
-                $temperatura[$x] = $datos[$x]->temperatura; 
+                $temperatura[$x] = $datos[$x]->temperatura;
             }
         }
         $data = $this->obtenerPromedios($humedad, $presion, $radiacion, $temperatura);
@@ -139,5 +139,3 @@ class Weather extends CI_Controller {
         $this->load->view('weather/filtro', $data);
 	}
 }
-
-

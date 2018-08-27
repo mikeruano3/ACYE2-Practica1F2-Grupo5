@@ -27,6 +27,9 @@
     </head>
 
     <body>
+
+        <?php echo '<pre>'.print_r($ubicaciones, 1).'</pre>'; ?>
+
 		<div class="section">
 		    <div class="container">
 				<div class="row">
