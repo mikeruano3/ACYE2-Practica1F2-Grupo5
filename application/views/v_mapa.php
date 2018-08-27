@@ -10,6 +10,7 @@
     	<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     	<link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+		<link href="<?php echo base_url('css/weather.css'); ?>" rel="stylesheet" type="text/css">
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnzdh15cMd1fizOlGEskh0yWMdgCdrXHM&callback=initMap" async defer></script>
 
         <style>
@@ -36,7 +37,31 @@
 					</div>
 				</div>
 		        <div class="row">
-		            <div class="col-md-12">
+					<div class="col-md-3">
+						<div class="alert alert-info" style="color:black;">
+						  	<strong>Filtros</strong>
+						</div>
+						<form action="/action_page.php">
+						  	<div class="form-group">
+						    	<label>Filtrar por ubicación:</label>
+						    	<input type="text" class="form-control" id="ubicacion">
+						  	</div>
+						  	<div class="form-group">
+								<label>Filtrar por fecha:</label>
+						    	<input type="text" class="form-control" id="fecha">
+						  	</div>
+							<div class="form-group">
+								<label>Filtrar por hora:</label>
+						    	<input type="text" class="form-control" id="hora">
+						  	</div>
+							<div class="form-group">
+								<label>Filtrar por dia:</label>
+						    	<input type="text" class="form-control" id="dia">
+						  	</div>
+						  	<button type="submit" class="btn btn-default">Filtrar</button>
+						</form>
+					</div>
+					<div class="col-md-9">
 						<div id="map"></div>
 					</div>
 		        </div>
@@ -56,10 +81,16 @@
 				<div class="modal-content">
 		      		<div class="modal-header">
 		        		<button type="button" class="close" data-dismiss="modal">&times;</button>
-		        		<h4 class="modal-title">Modal Header</h4>
+		        		<h4 class="modal-title">Clima promedio</h4>
 		      		</div>
 		      		<div class="modal-body">
-		        		<p>Some text in the modal.</p>
+						<div class="container">
+						    <div class="row">
+						        <div class="col-md-6">
+						            <img src="https://image.ibb.co/ihARL9/Whats_App_Image_2018_08_26_at_11_21_59_PM.jpg" alt="Imagen de Guatemala" width="540" height="290">
+						        </div>
+						    </div>
+						</div>
 		      		</div>
 		      		<div class="modal-footer">
 		        		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
