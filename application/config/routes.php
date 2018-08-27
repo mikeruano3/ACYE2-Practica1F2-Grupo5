@@ -49,6 +49,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+$route['weather'] = 'weather/index';
+$route['weather/porubicacion/(:any)'] = 'weather/porubicacion/$1';
+$route['weather/porfecha/(:any)'] = 'weather/porfecha/$1';
+$route['weather/porhora/(:any)'] = 'weather/porhora/$1';
 $route['default_controller'] = 'mapa';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
