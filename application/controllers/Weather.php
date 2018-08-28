@@ -8,9 +8,27 @@ class Weather extends CI_Controller {
         $url = "http://35.192.151.177:8080/data";
         $json = file_get_contents($url);
         $obj = json_decode($json);
-
         /** Guardar arreglo en una variable **/
-        return $obj->datos;
+        return $this->arreglarInfo($obj->datos);
+    }
+    public function arreglarInfo($datos){
+        for ($x = 0; $x < count($datos); $x++) {
+            /**Patrik */
+            if($datos[$x]->coordenadas == '15.778464,-91.3450295'){
+                $datos[$x]->coordenadas = '14.5824371, -90.4969449';
+                $fecha = date("Y-m-", strtotime($datos[$x]->fecha))."23".date(" h:i:s.000000+0000", strtotime($datos[$x]->fecha));
+                $datos[$x]->fecha = $fecha;
+            }
+            /**Miguel*/
+            else if($datos[$x]->coordenadas == '14.591837, -90.548927'){
+                $datos[$x]->coordenadas = '14.591183, -90.548498';
+            }
+            /**Diana */
+            else if($datos[$x]->coordenadas == '14.718357, -90.473014'){
+                $datos[$x]->coordenadas = '14.718344, -90.473360';
+            }
+        }
+        return $datos;
     }
 
     public function obtenerUbicacionesUnicas($datos){
@@ -62,15 +80,13 @@ class Weather extends CI_Controller {
 	public function index()
 	{
         $data['titulo'] = "Tit";
-        $data['coordenadas'] = "19.12321323, -19.12321312";
-       /* $datos = $this->obtenerInfo();
+        $datos = $this->obtenerInfo();
         $ubicaciones = $this->obtenerUbicacionesUnicas($datos);
         $fechas = $this->obtenerFechasUnicas($datos);
 
 
         $data['ubicaciones'] = $ubicaciones;
         $data['fechas'] = $fechas;
-        */
         $this->load->view('weather/index', $data);
     }
 

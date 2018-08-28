@@ -32,9 +32,8 @@
 						<div class="city"><small><small>Coordenadas:</small>
 							</small>
 							<?php
-								if($coordenadas){
-									echo $coordenadas;
-								}
+								echo implode ($ubicaciones, ", ");
+								echo implode ($fechas, ", ");
 							?>
 							</div>
                         <div class="temp">67&deg; <small>F</small></div>
