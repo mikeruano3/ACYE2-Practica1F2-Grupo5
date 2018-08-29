@@ -24,7 +24,8 @@ class Mapa extends CI_Controller {
 			$sesion_data = array(
 	            'metricas' 		=> $data['metricas'],
 	            'ubicaciones' 	=> $data['ubicaciones'],
-				'fechas' 		=> $data['fechas']
+				'fechas' 		=> $data['fechas'],
+				'horas'			=> $data['horas']
 	        );
 
 			$this->session->set_userdata($sesion_data);
@@ -34,6 +35,7 @@ class Mapa extends CI_Controller {
 			$data['metricas'] = $this->session->userdata['metricas'];
 	        $data['ubicaciones'] = $this->session->userdata['ubicaciones'];
 			$data['fechas'] = $this->session->userdata['fechas'];
+			$data['horas'] = $this->session->userdata['horas'];
 
 		}
 
@@ -305,13 +307,13 @@ class Mapa extends CI_Controller {
 
 		if($temperatura <= 9){
 			$response = "lluvioso";
-		}else if(($temperatura >= 10) || ($temperatura < 20)){
+		}else if($temperatura >= 10 && $temperatura < 20){
 			$response = "lluvioso";
-		}else if(($temperatura >= 20) || ($temperatura < 30)){
+		}else if($temperatura >= 20 && $temperatura < 30){
 			$response = "nublado";
-		}else if(($temperatura >= 30) || ($temperatura < 40)){
+		}else if($temperatura >= 30 && $temperatura < 40){
 			$response = "nubes y sol";
-		}else if(($temperatura >= 40) || ($temperatura < 50)){
+		}else if($temperatura >= 40 && $temperatura < 50){
 			$response = "soleado";
 		}else{
 			$response = "soleado";
