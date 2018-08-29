@@ -19,6 +19,7 @@ class Mapa extends CI_Controller {
 			$data['metricas'] = $this->arreglarInfo($metricas);
 			$data['ubicaciones'] = $this->obtenerPersona($this->obtenerUbicacionesUnicas($data['metricas']));
 			$data['fechas'] = $this->obtenerFechasUnicas($data['metricas']);
+			$data['horas'] = $this->obtenerHorasUnicas($data['metricas']);
 
 			$sesion_data = array(
 	            'metricas' 		=> $data['metricas'],
@@ -90,6 +91,24 @@ class Mapa extends CI_Controller {
         for ($x = 0; $x < count($datos); $x++) {
             if(isset($ubicaciones[$x])){
                 $arraylimpio[$conteo] = $ubicaciones[$x];
+                $conteo++;
+            }
+        }
+        return $arraylimpio;
+    }
+
+
+	public function obtenerHorasUnicas($datos){
+        $arrayhoras = [];
+        for ($x = 0; $x < count($datos); $x++) {
+            $arrayhoras[$x] = date("h", strtotime($datos[$x]->fecha));
+        }
+        $horas = array_unique($arrayhoras);
+        $arraylimpio = [];
+        $conteo = 0;
+        for ($x = 0; $x < count($datos); $x++) {
+            if(isset($horas[$x])){
+                $arraylimpio[$conteo] = $horas[$x];
                 $conteo++;
             }
         }
@@ -327,10 +346,11 @@ class Mapa extends CI_Controller {
 
 		}else if($tipo_filtro == "hora"){
 
-			// $datos = $this->porhora($valor_filtro);
-			// $datos2 = $this->calculateWeather($datos['promedio_temperatura'], $datos['promedio_humedad']);
-			// $datos['real_temp'] = $datos2['real_temp'];
-			// $datos['weather'] = $datos2['weather'];
+			$datos = $this->porhora($valor_filtro);
+			$datos2 = $this->calculateWeather($datos['promedio_temperatura'], $datos['promedio_humedad']);
+			$datos['real_temp'] = $datos2['real_temp'];
+			$datos['weather'] = $datos2['weather'];
+			$datos['flag'] = true;
 
 		}else if($tipo_filtro == "dia"){
 

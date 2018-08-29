@@ -28,6 +28,9 @@
     </head>
 
     <body>
+
+        <?php //echo '<pre>'.print_r($horas, 1).'</pre>'; ?>
+
         <div class="section">
 		    <div class="container">
 				<div class="row">
@@ -74,8 +77,8 @@
                             <label>Filtrar por hora:</label>
                             <select class="form-control subfilter" id="hora">
                                 <option value="0" disabled selected>Seleccione una opción</option>
-                                <?php foreach ($fechas as $k => $v) {  ?>
-                                    <option value="<?php echo $v; ?>">2018-08-<?php echo $v; ?></option>
+                                <?php foreach ($horas as $k => $v) {  ?>
+                                    <option value="<?php echo $v; ?>"><?php echo $v; ?> A.M.</option>
                                 <?php } ?>
                             </select>
                         </div>
