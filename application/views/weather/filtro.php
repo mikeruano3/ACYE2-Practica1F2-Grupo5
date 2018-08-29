@@ -50,7 +50,7 @@
                                     }
                             ?>&deg; 
                             <small>F</small></div>
-                        <div class="wind"><small><small>VIENTO:</small></small> 22 km/h</div>
+                        
                         <div>&nbsp;</div>
                     </div>
                     <div class="icon">
@@ -85,6 +85,13 @@
                         ?></h5>
                         <p><span class="wi wi-rain"></span></p>
                     </div>
+                </div>
+                <div>
+                         
+                            <?php
+                            
+                            ?>
+                         
                 </div>
             </div>
         </div>

@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['weather'] = 'weather/index';
 $route['weather/porubicacion/(:any)'] = 'weather/porubicacion/$1';
 $route['weather/porfecha/(:any)'] = 'weather/porfecha/$1';
+$route['weather/porfechahora/(:any)/(:any)'] = 'weather/porfechahora/$1/$2';
 $route['weather/porhora/(:any)'] = 'weather/porhora/$1';
 $route['default_controller'] = 'mapa';
 $route['404_override'] = '';
