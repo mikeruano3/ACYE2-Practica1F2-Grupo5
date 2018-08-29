@@ -3,7 +3,7 @@
 class Temperatura
 {
 
-    public function getValueOfTemp($humedad, $temperatura) {
+    public function getValueOfTemp($humedad, $temperatura){
 
 		$arr_temp[90][30] = 89;
 		$arr_temp[90][35] = 91;
