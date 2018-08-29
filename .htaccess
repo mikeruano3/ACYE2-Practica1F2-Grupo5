@@ -1,10 +1,10 @@
 <IfModule mod_rewrite.c>
 
     RewriteEngine On
-	RewriteBase /ACYE2-Practica1F2-Grupo5/
+	RewriteBase /ClimaGT/
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteRule ^(.*)$ /ACYE2-Practica1F2-Grupo5/index.php/$1 [L] 
+	RewriteRule ^(.*)$ /ClimaGT/index.php/$1 [L] 
 
 </IfModule>
 
