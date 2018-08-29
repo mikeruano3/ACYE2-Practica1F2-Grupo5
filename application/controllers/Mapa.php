@@ -203,7 +203,7 @@ class Mapa extends CI_Controller {
         $ubicaciones = $this->obtenerUbicacionesUnicas($datos);
         $noUbicacion = 0;
         for ($x = 0; $x < count($ubicaciones); $x++) {
-            if($x == $ubicacion){
+            if($ubicaciones[$x] == $ubicacion){
                 $noUbicacion = $x;
                 break;
             }
