@@ -57,13 +57,6 @@ flex-flow: row nowrap;
 {
 flex-grow: 1;
 text-align: center;
-cursor: pointer;
-}
-
-.weather .future .day:hover
-{
-color: #fff;
-background-color: #F68D2E;
 }
 
 .weather .future .day h3

@@ -11,25 +11,7 @@ class Weather extends CI_Controller {
         /** Guardar arreglo en una variable **/
         return $this->arreglarInfo($obj->datos);
     }
-    public function arreglarInfo($datos){
-        for ($x = 0; $x < count($datos); $x++) {
-            /**Patrik */
-            if($datos[$x]->coordenadas == '15.778464,-91.3450295'){
-                $datos[$x]->coordenadas = '14.5824371, -90.4969449';
-                $fecha = date("Y-m-", strtotime($datos[$x]->fecha))."23".date(" h:i:s.000000+0000", strtotime($datos[$x]->fecha));
-                $datos[$x]->fecha = $fecha;
-            }
-            /**Miguel*/
-            else if($datos[$x]->coordenadas == '14.591837, -90.548927'){
-                $datos[$x]->coordenadas = '14.591183, -90.548498';
-            }
-            /**Diana */
-            else if($datos[$x]->coordenadas == '14.718357, -90.473014'){
-                $datos[$x]->coordenadas = '14.718344, -90.473360';
-            }
-        }
-        return $datos;
-    }
+    
 
     public function obtenerUbicacionesUnicas($datos){
         $arrayatributoubicacion = [];
@@ -65,17 +47,7 @@ class Weather extends CI_Controller {
         return $arraylimpio;
     }
 
-    public function obtenerPromedios($humedad, $presion, $radiacion, $temperatura){
-        $promedio_humedad = array_sum($humedad)/count($humedad);
-        $data['promedio_humedad'] = $promedio_humedad;
-        $promedio_presion = array_sum($presion)/count($presion);
-        $data['promedio_presion'] = $promedio_presion;
-        $promedio_radiacion = array_sum($radiacion)/count($radiacion);
-        $data['promedio_radiacion'] = $promedio_radiacion;
-        $promedio_temperatura = array_sum($temperatura)/count($temperatura);
-        $data['promedio_temperatura'] = $promedio_temperatura;
-        return $data;
-    }
+
 
 	public function index()
 	{
@@ -90,68 +62,5 @@ class Weather extends CI_Controller {
         $this->load->view('weather/index', $data);
     }
 
-    public function porubicacion($ubicacion = NULL)
-	{
-        $datos = $this->obtenerInfo();
-        $ubicaciones = $this->obtenerUbicacionesUnicas($datos);
-        $noUbicacion = 0;
-        for ($x = 0; $x < count($ubicaciones); $x++) {
-            if($x == $ubicacion){
-                $noUbicacion = $x;
-                break;
-            }
-        }
-        $humedad = []; $presion = []; $radiacion = [];
-        $temperatura = [];
-        /** GUARDAR TODOS LOS DATOS QUE CORRESPONDEN A ESE LUGAR */
-        for ($x = 0; $x < count($datos); $x++) {
-            if($datos[$x]->coordenadas === $ubicaciones[$noUbicacion]){
-                $humedad[$x] = $datos[$x]->humedad;
-                $presion[$x] = $datos[$x]->presion;
-                $radiacion[$x] = $datos[$x]->radiacion;
-                $temperatura[$x] = $datos[$x]->temperatura;
-            }
-        }
-        $data = $this->obtenerPromedios($humedad, $presion, $radiacion, $temperatura);
-        $data['titulo'] = $ubicacion;
-        $this->load->view('weather/filtro', $data);
-    }
 
-    public function porfecha($fecha = NULL)
-	{
-        $datos = $this->obtenerInfo();
-        $humedad = []; $presion = []; $radiacion = [];
-        $temperatura = [];
-        /** GUARDAR TODOS LOS DATOS QUE CORRESPONDEN A ESE LUGAR */
-        for ($x = 0; $x < count($datos); $x++) {
-            if(date("d", strtotime($datos[$x]->fecha)) == $fecha){
-                $humedad[$x] = $datos[$x]->humedad;
-                $presion[$x] = $datos[$x]->presion;
-                $radiacion[$x] = $datos[$x]->radiacion;
-                $temperatura[$x] = $datos[$x]->temperatura;
-            }
-        }
-        $data = $this->obtenerPromedios($humedad, $presion, $radiacion, $temperatura);
-        $data['titulo'] = $fecha;
-        $this->load->view('weather/filtro', $data);
-    }
-
-    public function porhora($hora = NULL)
-	{
-        $datos = $this->obtenerInfo();
-        $humedad = []; $presion = []; $radiacion = [];
-        $temperatura = [];
-        /** GUARDAR TODOS LOS DATOS QUE CORRESPONDEN A ESE LUGAR */
-        for ($x = 0; $x < count($datos); $x++) {
-            if(date("h", strtotime($datos[$x]->fecha)) == $hora){
-                $humedad[$x] = $datos[$x]->humedad;
-                $presion[$x] = $datos[$x]->presion;
-                $radiacion[$x] = $datos[$x]->radiacion;
-                $temperatura[$x] = $datos[$x]->temperatura;
-            }
-        }
-        $data = $this->obtenerPromedios($humedad, $presion, $radiacion, $temperatura);
-        $data['titulo'] = $hora;
-        $this->load->view('weather/filtro', $data);
-	}
 }
